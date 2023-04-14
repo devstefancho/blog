@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link, PageProps, graphql } from 'gatsby'
-import './styles.css'
 
 export default function BlogPostTemplate({
   data,

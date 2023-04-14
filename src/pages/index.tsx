@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { HeadFC, Link, PageProps, graphql } from 'gatsby'
+import '../styles.css'
 
 const IndexPage: React.FC<PageProps<Queries.allMarkdownSlugQuery>> = ({
   data,
