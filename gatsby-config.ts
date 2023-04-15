@@ -54,6 +54,7 @@ const config: GatsbyConfig = {
         ],
       },
     },
+    `gatsby-plugin-sass`,
   ],
 }
 
