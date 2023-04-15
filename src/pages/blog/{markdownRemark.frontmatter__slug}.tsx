@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link, PageProps, graphql } from 'gatsby'
+import { Layout } from '@/components/layout'
 
 export default function BlogPostTemplate({
   data,
 }: PageProps<Queries.markdownTestQuery>) {
   const { markdownRemark } = data
   return (
-    <div>
+    <Layout>
       <Link to="/">Go To Home</Link>
       <article>
         <h1>{markdownRemark?.frontmatter?.title}</h1>
@@ -15,7 +16,7 @@ export default function BlogPostTemplate({
         </time>
         <div dangerouslySetInnerHTML={{ __html: markdownRemark?.html ?? '' }} />
       </article>
-    </div>
+    </Layout>
   )
 }
 

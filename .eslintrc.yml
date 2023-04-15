@@ -25,3 +25,7 @@ rules:
 
   import/newline-after-import:
     - error
+
+settings:
+  import/resolver:
+    typescript: {}

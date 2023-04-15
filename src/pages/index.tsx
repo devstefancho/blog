@@ -1,29 +1,14 @@
 import * as React from 'react'
 import { HeadFC, Link, PageProps, graphql } from 'gatsby'
-import * as styles from './index.module.scss'
 import '../global.css'
+import { Layout } from '@/components/layout'
+import * as styles from './index.module.scss'
 
 const IndexPage: React.FC<PageProps<Queries.allMarkdownSlugQuery>> = ({
   data,
 }) => {
-  // select html and add attribute data-theme and value is light
-
   return (
-    <main className="container">
-      <button
-        onClick={() => {
-          window.document.documentElement.setAttribute('data-theme', 'light')
-        }}
-      >
-        Light
-      </button>
-      <button
-        onClick={() => {
-          window.document.documentElement.setAttribute('data-theme', 'dark')
-        }}
-      >
-        Dark
-      </button>
+    <Layout>
       <h1>Stefan Cho</h1>
       <h2>Posts</h2>
       {data.allMarkdownRemark.nodes.map((node) => (
@@ -41,7 +26,7 @@ const IndexPage: React.FC<PageProps<Queries.allMarkdownSlugQuery>> = ({
           <p>{node?.excerpt}</p>
         </div>
       ))}
-    </main>
+    </Layout>
   )
 }
 
