@@ -9,7 +9,6 @@ const IndexPage: React.FC<PageProps<Queries.allMarkdownSlugQuery>> = ({
 }) => {
   return (
     <Layout>
-      <h1>Stefan Cho</h1>
       <h2>Posts</h2>
       {data.allMarkdownRemark.nodes.map((node) => (
         <div key={node?.frontmatter?.slug}>

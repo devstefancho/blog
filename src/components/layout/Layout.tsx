@@ -1,23 +1,13 @@
 import React, { PropsWithChildren } from 'react'
+import ThemeModeButton from './ThemeModeButton'
+import * as styles from './Layout.module.scss'
 
 const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className="container">
+    <div className={`container ${styles.container}`}>
       <nav>
-        <button
-          onClick={() => {
-            window.document.documentElement.setAttribute('data-theme', 'light')
-          }}
-        >
-          Light
-        </button>
-        <button
-          onClick={() => {
-            window.document.documentElement.setAttribute('data-theme', 'dark')
-          }}
-        >
-          Dark
-        </button>
+        <h1 className={styles.logo}>Stefan Cho</h1>
+        {typeof window !== 'undefined' && <ThemeModeButton />}
       </nav>
       <div>{children}</div>
     </div>
