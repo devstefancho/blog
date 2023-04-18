@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, PageProps, graphql } from 'gatsby'
+import { PageProps, graphql } from 'gatsby'
 import { Layout } from '@/components/layout'
 
 export default function BlogPostTemplate({
@@ -8,7 +8,6 @@ export default function BlogPostTemplate({
   const { markdownRemark } = data
   return (
     <Layout>
-      <Link to="/">Go To Home</Link>
       <article>
         <h1>{markdownRemark?.frontmatter?.title}</h1>
         <time dateTime={markdownRemark?.frontmatter?.date ?? ''}>
