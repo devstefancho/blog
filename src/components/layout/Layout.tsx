@@ -10,7 +10,12 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
         <Link to="/">
           <h1 className={styles.logo}>Stefan Cho</h1>
         </Link>
-        {typeof window !== 'undefined' && <ThemeModeButton />}
+        <div className={styles.navRight}>
+          {typeof window !== 'undefined' && <ThemeModeButton />}
+          <Link to="/about" className={styles.aboutText}>
+            ABOUT
+          </Link>
+        </div>
       </nav>
       <div>{children}</div>
     </div>
