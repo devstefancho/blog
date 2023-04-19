@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import { HeadFC, Link, PageProps, graphql } from 'gatsby'
 import '../global.css'
 import { Layout } from '@/components/layout'
@@ -7,6 +7,12 @@ import * as styles from './index.module.scss'
 const IndexPage: React.FC<PageProps<Queries.allMarkdownSlugQuery>> = ({
   data,
 }) => {
+  useEffect(() => {
+    window.gtag('event', 'test-event', {
+      key: 'hello-world',
+    })
+  }, [])
+
   return (
     <Layout>
       <h2>Posts</h2>

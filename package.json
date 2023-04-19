@@ -30,6 +30,7 @@
     "sass": "^1.62.0"
   },
   "devDependencies": {
+    "@types/gtag.js": "^0.0.12",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
