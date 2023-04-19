@@ -1,4 +1,9 @@
+import dotenv from 'dotenv'
 import type { GatsbyConfig } from 'gatsby'
+
+dotenv.config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -55,6 +60,19 @@ const config: GatsbyConfig = {
       },
     },
     `gatsby-plugin-sass`,
+    {
+      // https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-google-gtag
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: [
+          process.env.GA_ID, // Google Analytics / GA
+        ],
+        pluginConfig: {
+          head: true,
+          respectDNT: true,
+        },
+      },
+    },
   ],
 }
 
