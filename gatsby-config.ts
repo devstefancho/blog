@@ -69,7 +69,7 @@ const config: GatsbyConfig = {
         ],
         pluginConfig: {
           head: true,
-          respectDNT: true,
+          respectDNT: process.env.NODE_ENV === 'production',
         },
       },
     },
