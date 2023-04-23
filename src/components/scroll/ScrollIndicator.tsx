@@ -31,7 +31,6 @@ const ScrollIndicator = () => {
         background: 'var(--contrast)',
         zIndex: 99,
         transform: `translateX(${translateX}%)`,
-        transition: 'transform 0.2s ease',
       }}
     ></div>
   )
