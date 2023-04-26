@@ -8,6 +8,7 @@
     "gatsby"
   ],
   "scripts": {
+    "make": "node internal/createMarkdown.mjs",
     "dev": "gatsby develop",
     "dev:local": "gatsby develop -H 0.0.0.0",
     "start": "gatsby develop",
