@@ -1,0 +1,62 @@
+// DashBoard
+.dashboard {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.resetButton {
+  width: min-content;
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
+
+  &:focus,
+  &:active {
+    outline: none;
+    --box-shadow: none;
+  }
+}
+
+// Board
+.row {
+  display: flex;
+}
+
+// Board Status
+.boardStatus {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+// Square
+.square {
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 0;
+}
+
+.playerA {
+  color: red;
+}
