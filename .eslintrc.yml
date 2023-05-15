@@ -34,4 +34,5 @@ rules:
 
 settings:
   import/resolver:
-    typescript: {}
+    typescript:
+      alwaysTryTypes: true # path alias를 위해서 적용

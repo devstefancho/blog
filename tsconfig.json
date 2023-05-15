@@ -7,7 +7,8 @@
     "lib": ["esnext", "dom"],
     "moduleResolution": "node",
     "paths": {
-      "@/components/*": ["./src/components/*"]
+      "@/components/*": ["./src/components/*"],
+      "@/utils/*": ["./src/utils/*"]
     },
     "noEmit": true,
     "strict": true,

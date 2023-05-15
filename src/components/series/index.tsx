@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, graphql, useStaticQuery } from 'gatsby'
+import { goToPost } from '@/utils/route'
 import * as styles from './index.module.scss'
 
 const Series = () => {
@@ -25,7 +26,7 @@ const Series = () => {
       {data.allMarkdownRemark.nodes.map((node) => (
         <Link
           key={node.frontmatter?.slug}
-          to={`blog/${node?.frontmatter?.slug ?? '/'}`}
+          to={goToPost(node?.frontmatter?.slug)}
         >
           <div className={styles.card}>
             <h3>{node?.frontmatter?.title}</h3>

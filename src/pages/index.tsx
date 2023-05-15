@@ -3,6 +3,7 @@ import { HeadFC, Link, PageProps, graphql } from 'gatsby'
 import '../global.css'
 import { Layout } from '@/components/layout'
 import Series from '@/components/series'
+import { goToPost } from '@/utils/route'
 import * as styles from './index.module.scss'
 
 const IndexPage: React.FC<PageProps<Queries.allMarkdownSlugQuery>> = ({
@@ -16,7 +17,7 @@ const IndexPage: React.FC<PageProps<Queries.allMarkdownSlugQuery>> = ({
         <div key={node?.frontmatter?.slug}>
           <div className="warning">
             <div>
-              <Link to={`blog/${node?.frontmatter?.slug ?? '/'}`}>
+              <Link to={goToPost(node?.frontmatter?.slug)}>
                 {node?.frontmatter?.title}
               </Link>
             </div>
