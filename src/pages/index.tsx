@@ -2,6 +2,7 @@ import React from 'react'
 import { HeadFC, Link, PageProps, graphql } from 'gatsby'
 import '../global.css'
 import { Layout } from '@/components/layout'
+import Series from '@/components/series'
 import * as styles from './index.module.scss'
 
 const IndexPage: React.FC<PageProps<Queries.allMarkdownSlugQuery>> = ({
@@ -9,7 +10,8 @@ const IndexPage: React.FC<PageProps<Queries.allMarkdownSlugQuery>> = ({
 }) => {
   return (
     <Layout>
-      <h2>Posts</h2>
+      <Series />
+      <h2>All Posts</h2>
       {data.allMarkdownRemark.nodes.map((node) => (
         <div key={node?.frontmatter?.slug}>
           <div className="warning">
