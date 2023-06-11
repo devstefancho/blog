@@ -11,20 +11,28 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   }, [])
 
   return (
-    <div className={`container ${styles.container}`}>
-      <nav>
-        <Link to="/">
-          <h1 className={styles.logo}>Stefan Cho</h1>
-        </Link>
-        <div className={styles.navRight}>
-          {showButton && <ThemeModeButton />}
-          <Link to="/about" className={styles.aboutText}>
-            ABOUT
-          </Link>
-        </div>
+    <>
+      <nav className={`container-fluid ${styles.nav}`}>
+        <ul>
+          <li>
+            <Link to="/" className={styles.logo}>
+              Stefan Cho
+            </Link>
+          </li>
+        </ul>
+        <ul>
+          <li className={styles.navRight}>
+            {showButton && <ThemeModeButton />}
+          </li>
+          <li>
+            <Link to="/about" className={styles.aboutText}>
+              ABOUT
+            </Link>
+          </li>
+        </ul>
       </nav>
-      <div>{children}</div>
-    </div>
+      <main className="container">{children}</main>
+    </>
   )
 }
 

@@ -1,0 +1,31 @@
+/**
+ * Custom Global Style
+ * reference: https://picocss.com/docs/css/pico.docs.min.css
+ */
+
+:root:not([data-theme='dark']),
+[data-theme='light'] {
+  --nav-background-color: rgba(255, 255, 255, 0.7);
+  --nav-border-color: rgba(115, 130, 140, 0.2);
+}
+
+[data-theme='dark'] {
+  --nav-background-color: rgba(16, 24, 30, 0.8);
+  --nav-border-color: rgba(115, 130, 140, 0.2);
+}
+
+nav {
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  backdrop-filter: saturate(180%) blur(20px);
+  background-color: var(--nav-background-color);
+  box-shadow: 0 1px 0 var(--nav-border-color);
+}
+
+main {
+  padding: calc(var(--block-spacing-vertical) + 5rem) 0;
+}
