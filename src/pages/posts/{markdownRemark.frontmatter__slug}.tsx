@@ -2,6 +2,7 @@ import React from 'react'
 import { PageProps, graphql } from 'gatsby'
 import { Layout } from '@/components/layout'
 import { ScrollIndicator } from '@/components/scroll/ScrollIndicator'
+import Comment from '@/components/plugins/Comment'
 
 export default function BlogPostTemplate({
   data,
@@ -18,6 +19,7 @@ export default function BlogPostTemplate({
         </time>
         <div dangerouslySetInnerHTML={{ __html: markdownRemark?.html ?? '' }} />
       </article>
+      <Comment />
     </Layout>
   )
 }
