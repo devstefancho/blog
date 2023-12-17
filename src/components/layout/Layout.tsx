@@ -3,7 +3,11 @@ import { Link } from 'gatsby'
 import ThemeModeButton from './ThemeModeButton'
 import * as styles from './Layout.module.scss'
 
-const Layout: React.FC<PropsWithChildren> = ({ children }) => {
+interface PropTypes extends PropsWithChildren {
+  hideNavigation?: boolean
+}
+
+const Layout: React.FC<PropTypes> = ({ children, hideNavigation }) => {
   const [showButton, setShowButton] = useState(false)
 
   useEffect(() => {
@@ -12,25 +16,27 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <>
-      <nav className={`container-fluid ${styles.nav}`}>
-        <ul>
-          <li>
-            <Link to="/" className={styles.logo}>
-              Stefan Cho
-            </Link>
-          </li>
-        </ul>
-        <ul>
-          <li className={styles.navRight}>
-            {showButton && <ThemeModeButton />}
-          </li>
-          <li>
-            <Link to="/about" className={styles.aboutText}>
-              ABOUT
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      {!hideNavigation && (
+        <nav className={`container-fluid ${styles.nav}`}>
+          <ul>
+            <li>
+              <Link to="/" className={styles.logo}>
+                Stefan Cho
+              </Link>
+            </li>
+          </ul>
+          <ul>
+            <li className={styles.navRight}>
+              {showButton && <ThemeModeButton />}
+            </li>
+            <li>
+              <Link to="/about" className={styles.aboutText}>
+                ABOUT
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      )}
       <main className="container">{children}</main>
     </>
   )
