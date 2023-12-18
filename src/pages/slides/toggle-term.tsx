@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-  HeadFC,
-  // Link,
-  PageProps,
-  graphql,
-} from 'gatsby'
+import { HeadFC, PageProps, graphql } from 'gatsby'
 import { Layout } from '@/components/layout'
 import * as styles from './ToggleTermSlide.module.scss'
 
@@ -13,10 +8,10 @@ const ToggleTermSlide: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
 }) => {
   const { allMarkdownRemark } = data
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0)
-  const slide = allMarkdownRemark.nodes.find(
-    (n) => n.frontmatter?.index === currentSlideIndex
-  )
-  const pageLength = allMarkdownRemark.nodes.length
+  const node = allMarkdownRemark.nodes[0]
+  const slides = node?.html?.split('<hr>') || []
+  const currentSlide = slides[currentSlideIndex]
+  const pageLength = slides.length
 
   useEffect(() => {
     const keyPressHandler = (e: KeyboardEvent) => {
@@ -36,15 +31,15 @@ const ToggleTermSlide: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
     }
   }, [pageLength])
 
-  if (!slide?.frontmatter) return null
+  if (!node?.frontmatter) return null
 
   return (
     <Layout hideNavigation>
       <div className={styles.content}>
-        <h1>{slide.frontmatter.title}</h1>
+        <h1>{node.frontmatter.title}</h1>
 
-        {slide?.html && (
-          <div dangerouslySetInnerHTML={{ __html: slide.html }} />
+        {currentSlide && (
+          <div dangerouslySetInnerHTML={{ __html: currentSlide }} />
         )}
       </div>
       <div className={styles.buttonGroup}>
@@ -73,14 +68,11 @@ export default ToggleTermSlide
 
 export const query = graphql`
   query slideMarkdown {
-    allMarkdownRemark(
-      filter: { frontmatter: { slug: { regex: "/toggleTerm-[0-9]+/" } } }
-    ) {
+    allMarkdownRemark(filter: { frontmatter: { slug: { eq: "toggleTerm" } } }) {
       nodes {
         frontmatter {
           title
           slug
-          index
         }
         html
       }
