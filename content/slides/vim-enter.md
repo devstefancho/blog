@@ -1,5 +1,5 @@
 ---
-slug: toggleTerm
+slug: vim-enter
 date: '2023-12-15'
 title: 'toggleTerm / Alpha'
 ---

@@ -85,7 +85,7 @@ export default PresentationVimEnter
 
 export const query = graphql`
   query slideMarkdown {
-    allMarkdownRemark(filter: { frontmatter: { slug: { eq: "toggleTerm" } } }) {
+    allMarkdownRemark(filter: { frontmatter: { slug: { eq: "vim-enter" } } }) {
       nodes {
         frontmatter {
           title
