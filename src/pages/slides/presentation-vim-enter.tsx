@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { HeadFC, PageProps, graphql } from 'gatsby'
 import { Layout } from '@/components/layout'
-import * as styles from './ToggleTermSlide.module.scss'
+import * as styles from './PresentationVimEnter.module.scss'
 
-const ToggleTermSlide: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
+const PresentationVimEnter: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
   data,
 }) => {
   const { allMarkdownRemark } = data
@@ -62,7 +62,7 @@ const ToggleTermSlide: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
   )
 }
 
-export default ToggleTermSlide
+export default PresentationVimEnter
 
 export const query = graphql`
   query slideMarkdown {
