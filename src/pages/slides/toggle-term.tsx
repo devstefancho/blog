@@ -36,8 +36,6 @@ const ToggleTermSlide: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
   return (
     <Layout hideNavigation>
       <div className={styles.content}>
-        <h1>{node.frontmatter.title}</h1>
-
         {currentSlide && (
           <div dangerouslySetInnerHTML={{ __html: currentSlide }} />
         )}
