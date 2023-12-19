@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { HeadFC, PageProps, graphql } from 'gatsby'
 import { Layout } from '@/components/layout'
-import * as styles from './PresentationVimEnter.module.scss'
+import * as styles from './VimEnter.module.scss'
 
 const PresentationVimEnter: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
   data,
