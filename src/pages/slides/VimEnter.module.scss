@@ -5,6 +5,7 @@
     width: 800px;
   }
 
+  /* Mobile */
   @media (max-width: 450px) {
     video {
       width: 400px;
@@ -37,5 +38,11 @@
 
   button {
     width: 100px;
+  }
+
+  /* Desktop */
+  @media (min-width: 1024px) {
+    position: relative;
+    width: 100%;
   }
 }
