@@ -31,6 +31,21 @@ const PresentationVimEnter: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
     }
   }, [pageLength])
 
+  const [isLandScape, setIsLandScape] = useState<boolean>(
+    window.matchMedia('(orientation: landscape)').matches
+  )
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLandScape(window.matchMedia('(orientation: landscape)').matches)
+    }
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   if (!node?.frontmatter) return null
 
   return (
@@ -40,7 +55,11 @@ const PresentationVimEnter: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
           <div dangerouslySetInnerHTML={{ __html: currentSlide }} />
         )}
       </div>
-      <div className={styles.buttonGroup}>
+      <div
+        className={
+          isLandScape ? styles.buttonGroupForLandScape : styles.buttonGroup
+        }
+      >
         <button
           onClick={() => {
             setCurrentSlideIndex((prev) => (prev === 0 ? 0 : prev - 1))

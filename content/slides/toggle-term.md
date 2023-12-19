@@ -117,7 +117,7 @@ return {
 
 # YarnDev용 terminal - Showcase
 
-<video width="800" controls>
+<video controls>
   <source src="/yarn-dev-video.mov" type="video/mp4" />
 </video>
 
