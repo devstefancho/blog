@@ -31,9 +31,10 @@ const PresentationVimEnter: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
     }
   }, [pageLength])
 
-  const [isLandScape, setIsLandScape] = useState<boolean>(
-    window.matchMedia('(orientation: landscape)').matches
-  )
+  const [isLandScape, setIsLandScape] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia('(orientation: landscape)').matches
+  })
 
   useEffect(() => {
     const handleResize = () => {
