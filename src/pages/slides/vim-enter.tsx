@@ -8,6 +8,7 @@ const PresentationVimEnter: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
 }) => {
   const { allMarkdownRemark } = data
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0)
+  const isHide = window.location.search.includes('hide=true')
   const node = allMarkdownRemark.nodes[0]
   const slides = node?.html?.split('<hr>') || []
   const currentSlide = slides[currentSlideIndex]
@@ -56,28 +57,33 @@ const PresentationVimEnter: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
           <div dangerouslySetInnerHTML={{ __html: currentSlide }} />
         )}
       </div>
-      <div
-        className={
-          isLandScape ? styles.buttonGroupForLandScape : styles.buttonGroup
-        }
-      >
-        <button
-          onClick={() => {
-            setCurrentSlideIndex((prev) => (prev === 0 ? 0 : prev - 1))
-          }}
+      {!isHide && (
+        <div
+          className={
+            isLandScape ? styles.buttonGroupForLandScape : styles.buttonGroup
+          }
         >
-          prev
-        </button>
-        <button
-          onClick={() => {
-            setCurrentSlideIndex((prev) =>
-              prev >= pageLength - 1 ? pageLength - 1 : prev + 1
-            )
-          }}
-        >
-          next
-        </button>
-      </div>
+          <button
+            onClick={() => {
+              setCurrentSlideIndex((prev) => (prev === 0 ? 0 : prev - 1))
+            }}
+          >
+            prev
+          </button>
+          <button
+            onClick={() => {
+              setCurrentSlideIndex((prev) =>
+                prev >= pageLength - 1 ? pageLength - 1 : prev + 1
+              )
+            }}
+          >
+            next
+          </button>
+        </div>
+      )}
+      <div className={styles.pageNumber}>{`${
+        currentSlideIndex + 1
+      } / ${pageLength}`}</div>
     </Layout>
   )
 }
