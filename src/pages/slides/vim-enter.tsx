@@ -15,9 +15,9 @@ const PresentationVimEnter: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
 
   useEffect(() => {
     const keyPressHandler = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') {
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
         setCurrentSlideIndex((prev) => (prev === 0 ? 0 : prev - 1))
-      } else if (e.key === 'ArrowRight') {
+      } else if (e.key === 'ArrowRight' || e.key === 'Enter') {
         setCurrentSlideIndex((prev) =>
           prev >= pageLength - 1 ? pageLength - 1 : prev + 1
         )
