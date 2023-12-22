@@ -8,7 +8,9 @@ const PresentationVimEnter: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
 }) => {
   const { allMarkdownRemark } = data
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0)
-  const isHide = window.location.search.includes('hide=true')
+  const isHide =
+    typeof window !== 'undefined' &&
+    window.location.search.includes('hide=true')
   const node = allMarkdownRemark.nodes[0]
   const slides = node?.html?.split('<hr>') || []
   const currentSlide = slides[currentSlideIndex]
@@ -83,7 +85,7 @@ const PresentationVimEnter: React.FC<PageProps<Queries.slideMarkdownQuery>> = ({
       )}
       <div className={styles.pageNumber}>{`${
         currentSlideIndex + 1
-      } / ${pageLength}`}</div>
+      } / ${pageLength} `}</div>
     </Layout>
   )
 }
