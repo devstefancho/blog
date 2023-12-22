@@ -6,62 +6,34 @@ title: 'toggleTerm / Alpha'
 
 # 안녕하세요
 
-| _**About Me**_           |
-| ------------------------ |
-| dev-stefan-cho (조성진)  |
-| Frontend Developer (Web) |
-| Typescript, Lua          |
-| Vim(+3y), Neovim(+1y)    |
+| ## _**About Me**_                                        |
+| -------------------------------------------------------- |
+| Frontend Developer (Web)                                 |
+| Typescript, Lua                                          |
+| Vim(+3y), Neovim(+1y)                                    |
+| _<a>github.com/devstefancho</a>_ (dev-stefan-cho 조성진) |
 
 ---
 
 # 목차
 
-1. ToggleTerm
-2. Alpha
-3. 마무리
+1. 커스텀 터미널 생성하기 with toggleTerm.nvim
 
----
+2. 환경에 따른 대시보드 바꾸기 with alpha-nvim
 
-# tmux로 terminal split
-
-작업공간과 로컬서버용 터미널을 분리하기 적합하였고,
-tmux를 약간 커스텀하면 더 편하게 활용이 가능했음
-
-| Vertical Split | Horizontal Split |
-| -------------- | ---------------- |
-| `Ctrl + b + %` | `Ctrl + b + "`   |
-
-```
-set-option -g prefix C-a
-
-# split window
-bind v split-window -h -c "#{pane_current_path}"
-bind s split-window -v -c "#{pane_current_path}" \; resize-pane -y 10 # split pane with 10 lines
-```
-
----
-
-# 하지만...
-
-- tmux prefix를 사용하는게 불편했고,
-- zoom in/out 기능도 좋지만,
-- 가끔 현재 켜져있는 서버와 vim이 매칭 되지 않는 문제...
-- vim내에서 터미널을 다루고 싶은 욕구가 커짐
+3. 개발환경에 대한 생각
 
 ---
 
 # :help toggleterm-why?
 
-> I find that I often want to set a process going and leave it to continue to run in the background.
-> I also sometimes want to create a new terminal and run a few commands.
-> I also want my terminal to look different from non-terminal buffers,
+> _I find that I often want to set a process going and leave it to continue to run in the background._ > _I also sometimes want to create a new terminal and run a few commands._ > _I also want my terminal to look different from non-terminal buffers,_
 
-백그라운드에 두고 싶고,
+- 백그라운드에 두고 싶고,
 
-새로운 터미널을 생성해서 몇가지 명령어를 실행하고 싶고,
+- 새로운 터미널을 생성해서 특정 명령어를 실행하고 싶고,
 
-터미널이 다른 버퍼와 다른 모습이면 좋겠고,
+- 터미널이 다른 버퍼와 다른 UI이면 좋겠고,
 
 ---
 
@@ -109,11 +81,11 @@ return {
 
 각 프레임워크마다 서버기동 명령어 예시
 
-| 프레임워크          | 명령어                     |
-| ------------------- | -------------------------- |
-| Nextjs (Typescript) | yarn dev                   |
-| Spring Boot (Java)  | ./gradlew bootRun          |
-| Django (Python)     | python manage.py runserver |
+| 프레임워크          | 명령어                       |
+| ------------------- | ---------------------------- |
+| Nextjs (Typescript) | `yarn dev`                   |
+| Spring Boot (Java)  | `./gradlew bootRun`          |
+| Django (Python)     | `python manage.py runserver` |
 
 ---
 
@@ -126,14 +98,6 @@ return {
 ## 원하는 조건
 
 터미널 토글로는 YarnDev용 터미널이 열리지 않아야함
-
----
-
-# YarnDev용 terminal - Showcase
-
-<video controls>
-  <source src="/yarn-dev-video.mov" type="video/mp4" />
-</video>
 
 ---
 
@@ -169,7 +133,7 @@ function _Node_term_toggle()
   local node_term = Terminal:new({
     hidden = true, -- 기본 ToggleTerm 명령에 의해서 토글되지 않음
     count = 5, -- 터미널 고유번호
-    direction = "float", -- 레이아웃
+    direction = "float", -- 레이아웃 (float, vertical, horizontal)
     on_open = function(term)
       keymap("t", "<esc>", function()
         term:toggle() -- esc키로 닫기
@@ -185,6 +149,14 @@ vim.api.nvim_create_user_command("YarnDev", _Node_term_toggle, {})
 
 ---
 
+# YarnDev용 terminal - Showcase
+
+<video controls>
+<source src="/yarn-dev-video.mov" type="video/mp4" />
+</video>
+
+---
+
 # Jira-cli 활용하기 - 설정
 
 ```lua
@@ -193,7 +165,7 @@ function _Jira_history_toggle()
   local jira_term = Terminal:new({
     hidden = true, -- 기본 ToggleTerm 명령에 의해서 토글되지 않음
     count = 6, -- 터미널 고유번호
-    direction = "float", -- 레이아웃
+    direction = "float", -- 레이아웃 (float, vertical, horizontal)
     on_open = function(term)
       keymap("t", "<esc>", function()
         term:toggle() -- esc키로 닫기
@@ -210,7 +182,7 @@ vim.api.nvim_create_user_command("JiraHistory", _Jira_history_toggle, {})
 
 ---
 
-# Jira-cli 활용하기 - 설정
+# Jira-cli 활용하기 - 결과
 
 ![](/jira-cli-history.png)
 
@@ -241,13 +213,17 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       local vimwiki = require("devstefancho.vimwiki")
-      if vimwiki.is_current_path_wiki() then -- vim.fn.getcwd로 wiki path인지 확인
+
+      -- vim.fn.getcwd로 wiki path인지 확인하여 dashboard 분기
+      if vimwiki.is_current_path_wiki() then
+        -- vimwiki용 dashboard
         require("alpha").setup(require("devstefancho.ui.wiki-dashboard").config)
       else
+        -- ui용 dashboard
         require("alpha").setup(require("devstefancho.ui.dashboard").config)
       end
+
     end,
-    cond = require("devstefancho.plugins_status").plugins_status["alpha-nvim"],
   },
 }
 ```
