@@ -10,7 +10,7 @@ title: 'toggleTerm / Alpha'
 | ------------------------ |
 | dev-stefan-cho (조성진)  |
 | Frontend Developer (Web) |
-| Javascript, Lua          |
+| Typescript, Lua          |
 | Vim(+3y), Neovim(+1y)    |
 
 ---
@@ -105,13 +105,27 @@ return {
 
 ---
 
+# 서버실행 전용 터미널을 만들자
+
+각 프레임워크마다 서버기동 명령어 예시
+
+| 프레임워크          | 명령어                     |
+| ------------------- | -------------------------- |
+| Nextjs (Typescript) | yarn dev                   |
+| Spring Boot (Java)  | ./gradlew bootRun          |
+| Django (Python)     | python manage.py runserver |
+
+---
+
 # YarnDev용 terminal
 
 1. `:YarnDev` 로 터미널을 연다
 1. `yarn dev`를 입력한다
 1. `esc`로 닫는다
 
-이때 일반 터미널 토글로는 YarnDev용 터미널이 열려서는 안된다
+## 원하는 조건
+
+터미널 토글로는 YarnDev용 터미널이 열리지 않아야함
 
 ---
 
@@ -126,9 +140,9 @@ return {
 # YarnDev용 terminal - 설정
 
 ```lua
-function _Node_server_toggle()
+function _Node_term_toggle()
   local opts = { buffer = 0 }
-  local node_server = Terminal:new({
+  local node_term = Terminal:new({
     hidden = true,
     count = 5,
     direction = "float",
@@ -138,8 +152,11 @@ function _Node_server_toggle()
       end, opts)
     end,
   })
-  node_server:toggle()
+  node_term:toggle()
 end
+
+
+vim.api.nvim_create_user_command("YarnDev", _Node_term_toggle, {})
 ```
 
 ---
@@ -147,9 +164,9 @@ end
 # YarnDev용 terminal - 설정
 
 ```lua
-function _Node_server_toggle()
+function _Node_term_toggle()
   local opts = { buffer = 0 }
-  local node_server = Terminal:new({
+  local node_term = Terminal:new({
     hidden = true, -- 기본 ToggleTerm 명령에 의해서 토글되지 않음
     count = 5, -- 터미널 고유번호
     direction = "float", -- 레이아웃
@@ -159,9 +176,43 @@ function _Node_server_toggle()
       end, opts)
     end,
   })
-  node_server:toggle()
+  node_term:toggle()
 end
+
+-- 커맨드모드에서 YarnDev로 실행
+vim.api.nvim_create_user_command("YarnDev", _Node_term_toggle, {})
 ```
+
+---
+
+# Jira-cli 활용하기 - 설정
+
+```lua
+function _Jira_history_toggle()
+  local opts = { buffer = 0 }
+  local jira_term = Terminal:new({
+    hidden = true, -- 기본 ToggleTerm 명령에 의해서 토글되지 않음
+    count = 6, -- 터미널 고유번호
+    direction = "float", -- 레이아웃
+    on_open = function(term)
+      keymap("t", "<esc>", function()
+        term:toggle() -- esc키로 닫기
+      end, opts)
+      vim.fn.chansend(term.job_id, "jhistory\n")
+    end,
+  })
+  jira_term:toggle()
+end
+
+-- 커맨드모드에서 JiraHistory로 실행
+vim.api.nvim_create_user_command("JiraHistory", _Jira_history_toggle, {})
+```
+
+---
+
+# Jira-cli 활용하기 - 설정
+
+![](/jira-cli-history.png)
 
 ---
 
@@ -215,10 +266,9 @@ return {
 
 ---
 
-# 가치관
+# 개발환경에 대해 생각하는 것
 
-- 내가 필요한만큼만 커스텀할 수 있는 환경
 - 터미널과 가까운 환경
-- 내가 지속적으로 개선할 수 있는 환경
-
----
+- 내가 필요한만큼만 커스텀할 수 있는 환경
+- 내가 지속적으로 스스로 개선할 수 있는 환경
+- 개발할수록 즐거움을 주는 환경
