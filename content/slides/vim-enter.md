@@ -27,7 +27,9 @@ title: 'toggleTerm / Alpha'
 
 # :help toggleterm-why?
 
-> _I find that I often want to set a process going and leave it to continue to run in the background._ > _I also sometimes want to create a new terminal and run a few commands._ > _I also want my terminal to look different from non-terminal buffers,_
+> _I find that I often want to set a process going and leave it to continue to run in the background._
+> _I also sometimes want to create a new terminal and run a few commands._
+> _I also want my terminal to look different from non-terminal buffers,_
 
 - 백그라운드에 두고 싶고,
 
@@ -39,8 +41,9 @@ title: 'toggleTerm / Alpha'
 
 # 설치하기
 
+- plugin manager : lazy.nvim
+
 ```lua
--- lazy.nvim
 return {
   {
     "akinsho/toggleterm.nvim",
@@ -48,7 +51,6 @@ return {
     config = function()
       require("toggleterm").setup({
         open_mapping = [[<c-\>]],
-        start_in_insert = true,
         direction = "float",
       })
   },
@@ -59,17 +61,17 @@ return {
 
 # 설치하기
 
+- plugin manager : lazy.nvim
+
 ```lua
--- lazy.nvim
 return {
   {
     "akinsho/toggleterm.nvim",
     version = "*",
     config = function()
       require("toggleterm").setup({
-        open_mapping = [[<c-\>]], -- 기본 ToggleTerm 명령어
-        start_in_insert = true,
-        direction = "float",
+        open_mapping = [[<c-\>]], -- Ctrl + \
+        direction = "float", -- float | vertical | horizontal
       })
   },
 }
@@ -97,7 +99,7 @@ return {
 
 ## 원하는 조건
 
-터미널 토글로는 YarnDev용 터미널이 열리지 않아야함
+터미널 토글(`Ctrl + \`)로는 YarnDev용 터미널이 열리지 않아야함
 
 ---
 
@@ -151,6 +153,11 @@ vim.api.nvim_create_user_command("YarnDev", _Node_term_toggle, {})
 
 # YarnDev용 terminal - Showcase
 
+1. `:YarnDev`로 터미널(id=5)열기
+2. `yarn dev` 커맨드 입력으로 서버기동
+3. `esc`키로 터미널 닫기
+4. `Ctrl + \`로 터미널 열면 일반터미널(id=1)이 열리고 닫힘
+
 <video controls>
 <source src="/yarn-dev-video.mov" type="video/mp4" />
 </video>
@@ -170,6 +177,7 @@ function _Jira_history_toggle()
       keymap("t", "<esc>", function()
         term:toggle() -- esc키로 닫기
       end, opts)
+      -- alias jhistory='jira-cli list --history -a$(jira me) -pSOMETHING'
       vim.fn.chansend(term.job_id, "jhistory\n")
     end,
   })
@@ -232,9 +240,8 @@ return {
 
 # Alpha 대시보드로 작업환경 분리하기
 
-- 특정 환경에서 자주쓰는 명령어들을 등록해두기 좋음
-- 단축어가 기억이 잘 안날때 자주쓰는 명령어만 등록하기 좋음
-- 단축어 관리를 위해 which-key로 사용해보았으나 관리가 어려워서 사용하지 않고있음
+- 수많은 키맵으로 인한 인지부하 줄이기
+- 자주쓰는 명령어 (머슬메모리)
 
 | wiki                      | work                      |
 | ------------------------- | ------------------------- |
@@ -244,7 +251,7 @@ return {
 
 # 개발환경에 대해 생각하는 것
 
-- 터미널과 가까운 환경
-- 내가 필요한만큼만 커스텀할 수 있는 환경
-- 내가 지속적으로 스스로 개선할 수 있는 환경
-- 개발할수록 즐거움을 주는 환경
+- **터미널**과 가까운 환경
+- 내가 **필요한만큼만** 커스텀할 수 있는 환경
+- 내가 지속적으로 **스스로 개선**할 수 있는 환경
+- 개발할수록 **즐거움**을 주는 환경
